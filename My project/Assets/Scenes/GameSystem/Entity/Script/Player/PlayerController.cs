@@ -5,11 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : BaseController
 {
-    private Rigidbody2D rigidComponent;
-    private SpriteRenderer spriteRenderer;
-
-    public float moveSpeed = 5.0f;
-
     private Vector2 moveDirection;
     private Vector2 mouseDirection;
 
@@ -21,10 +16,6 @@ public class PlayerController : BaseController
     Camera mainCamera;
 
     [HideInInspector] public PlayerInput playerInput;
-
-    private StateManager stateManager = null;
-
-    [HideInInspector] public StatusCollection statusCollection = new StatusCollection();
 
     void Start()
     {
