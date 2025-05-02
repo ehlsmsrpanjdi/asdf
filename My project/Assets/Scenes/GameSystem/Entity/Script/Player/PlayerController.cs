@@ -17,11 +17,11 @@ public class PlayerController : BaseController
 
     [HideInInspector] public PlayerInput playerInput;
 
+
     void Start()
     {
         Init();
     }
-
 
     private void Update()
     {

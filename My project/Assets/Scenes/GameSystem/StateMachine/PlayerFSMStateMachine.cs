@@ -130,7 +130,7 @@ public class HitState : StateMachine
     public override void StateUpdate()
     {
         Debug.Log("State Update");
-        if (controller.statusCollection.GodUpdate())
+        if (controller.statusCollection.GodTimeUpdate())
         {
             stateManager.StateChange(StateEnum.Idle);
         }

@@ -12,11 +12,17 @@ public abstract class  WeaponStrategy
 {
     public BaseAnimationHandle animationHandle;
     public WeaponHandler weaponHandler;
+
     public WeaponType weaponType { get; protected set; }
     public virtual void Init(BaseAnimationHandle _animationHandle, WeaponHandler _weaponHandler)
     {
         animationHandle = _animationHandle;
         weaponHandler = _weaponHandler;
+    }
+    public virtual void Release()
+    {
+        animationHandle = null;
+        weaponHandler = null;
     }
 
     public abstract void Attack();
@@ -47,7 +53,10 @@ public class  RangedWeapon : WeaponStrategy
 
     public override void Update()
     {
-
+        if(true == weaponHandler.currentWeapon.CoolTimeUpdate())
+        {
+            animationHandle.Attack(false);
+        }
     }
 }
 
@@ -70,6 +79,9 @@ public class MeleeWeapon : WeaponStrategy
     }
     public override void Update()
     {
-
+        if (true == weaponHandler.currentWeapon.CoolTimeUpdate())
+        {
+            animationHandle.Attack(false);
+        }
     }
 }
