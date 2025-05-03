@@ -64,11 +64,6 @@ public class StateManager : MonoBehaviour
             return;
         }
 
-        if(_Enum == StateEnum.Hit)
-        {
-            return;
-        }
-
         currentState?.StateExit();
         currentState = stateDic[_Enum];
         currentState.StateEnter();

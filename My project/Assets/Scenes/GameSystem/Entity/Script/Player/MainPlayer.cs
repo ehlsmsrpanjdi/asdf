@@ -13,6 +13,7 @@ public class MainPlayer : MonoBehaviour
     StateManager stateManager;
     StatusCollection statusManager = new StatusCollection();
     PlayerSpriteObject playerSpriteObject;
+    WeaponHandler weaponHandler;
     Camera mainCamera;
 
     Vector2 screenMousePos;
@@ -25,6 +26,7 @@ public class MainPlayer : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         stateManager = GetComponent<StateManager>();
         playerSpriteObject = GetComponentInChildren<PlayerSpriteObject>();
+        weaponHandler = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponHandler>();
         mainCamera = Camera.main;
 
         Init();
@@ -33,10 +35,16 @@ public class MainPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Hit();
+        }
+
         MousePosCaculator();
+        stateManager.ManagerUpdate();
+        statusManager.StatusUpdate();
 
         Vector2 playerPos = transform.position;
-        stateManager.ManagerUpdate();
         playerSpriteObject.FlipUpdate(playerPos, screenMousePos);
     }
 
@@ -60,7 +68,23 @@ public class MainPlayer : MonoBehaviour
 
     void Attack()
     {
+        if (weaponHandler.isEquipped == false) return;
         stateManager.StateChange(StateEnum.Attack);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Hit();
+        }
+    }
+
+    void Hit()
+    {
+        if(statusManager.IsGod() == true) return;
+        statusManager.BeGod();
+        stateManager.StateChange(StateEnum.Hit);
     }
 
     void Jump()
@@ -80,6 +104,8 @@ public class MainPlayer : MonoBehaviour
         playerSpriteObject.Init();
 
         stateManager.Init();
+
+        //weaponHandler.Init();
 
         playerController.Init();
         playerController.move.performed += ctx => Move();

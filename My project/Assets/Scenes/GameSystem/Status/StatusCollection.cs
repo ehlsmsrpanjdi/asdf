@@ -11,30 +11,32 @@ public class StatusCollection
 
     public float GodTime
     {
-        get; set;
+        get; protected set;
     }
     public float GodTimeMax
     {
         get { return 1.5f; }
-        private set { GodTimeMax = value; }
+        protected set { GodTimeMax = value; }
     }
-    public void BeGod()
+    public void BeGod() => GodTime = GodTimeMax;
+
+    public bool IsGod() => GodTime > 0.001f ? true : false;
+
+    public void StatusUpdate()
     {
-        GodTime = GodTimeMax;
+        GodTimeUpdate();
     }
 
     /// <summary>
     /// godtime is 0.01f or less return true;
     /// </summary>
     /// <returns></returns>
-    public bool GodTimeUpdate()
+    public void GodTimeUpdate()
     {
         if (GodTime > 0.01f)
         {
             GodTime -= Time.deltaTime;
-            return false;
         }
         GodTime = 0.0f;
-        return true;
     }
 }

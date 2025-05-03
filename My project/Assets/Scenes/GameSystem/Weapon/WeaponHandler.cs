@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class WeaponHandler : MonoBehaviour
 {
-    public bool isWeaponEquipped { get; protected set; }
+    public bool isEquipped { get; protected set; }
 
     public WeaponAnimHandler animationHandle;
 
