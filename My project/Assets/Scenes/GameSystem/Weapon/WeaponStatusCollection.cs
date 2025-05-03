@@ -8,20 +8,19 @@ public class WeaponStatusCollection
     public float AttackTime = 1.0f;
     public float AttackTimeMax = 1.0f;
 
-    public bool AttackTimeUpdate()
+    public float Damage = 10.0f;
+
+    public void AttackTimeUpdate()
     {
         if (AttackTime > 0.01f)
         {
             AttackTime -= Time.deltaTime;
-            return false;
         }
         AttackTime = 0.0f;
-        return true;
     }
 
-    public void DoAttack()
-    {
-        AttackTime = AttackTimeMax;
-    }
+    public bool CanAttack() => AttackTime > 0.001f ? false : true;
+
+    public void DoAttack() => AttackTime = AttackTimeMax;
 }
 

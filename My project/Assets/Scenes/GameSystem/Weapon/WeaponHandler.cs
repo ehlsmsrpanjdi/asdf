@@ -9,8 +9,20 @@ public class WeaponHandler : MonoBehaviour
 
     public WeaponAnimHandler animationHandle;
 
+    public WeaponStrategy weaponStrategy;
+
+    //public WeaponInfo;
+
+    //void WeaponOn();
+    //void WeaponOff();
+
     public void WeaponUpdate()
     {
 
+    }
+
+    public void Attack()
+    {
+        weaponStrategy.Attack();
     }
 }

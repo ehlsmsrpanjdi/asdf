@@ -37,7 +37,7 @@ public class MainPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Hit();
+            OnHit();
         }
 
         MousePosCaculator();
@@ -70,17 +70,18 @@ public class MainPlayer : MonoBehaviour
     {
         if (weaponHandler.isEquipped == false) return;
         stateManager.StateChange(StateEnum.Attack);
+        //weaponHandler.Attack(statusManager.mouseDirection);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Hit();
+            OnHit();
         }
     }
 
-    void Hit()
+    void OnHit()
     {
         if(statusManager.IsGod() == true) return;
         statusManager.BeGod();
