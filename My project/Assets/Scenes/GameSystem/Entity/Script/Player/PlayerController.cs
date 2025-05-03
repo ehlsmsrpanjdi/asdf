@@ -28,6 +28,7 @@ public class PlayerController : BaseController
         TotalMouseFunction();
 
         stateManager.ManagerUpdate();
+        weaponHandler.WeaponUpdate();
     }
 
 
@@ -92,6 +93,8 @@ public class PlayerController : BaseController
 
         stateManager = GetComponent<StateManager>();
         stateManager.Init();
+
+        weaponHandler = GameObject.FindWithTag("Weapon").GetComponent<WeaponHandler>();
 
         playerInput = GetComponent<PlayerInput>();
         move = playerInput.actions["Move"];

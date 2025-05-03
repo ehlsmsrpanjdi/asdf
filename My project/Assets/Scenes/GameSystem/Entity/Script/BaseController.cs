@@ -7,6 +7,7 @@ public class BaseController : MonoBehaviour
 {
     protected Rigidbody2D rigidComponent;
     protected SpriteRenderer spriteRenderer;
+    protected WeaponHandler weaponHandler;
 
     public float moveSpeed = 5.0f;
 

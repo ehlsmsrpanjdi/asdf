@@ -8,4 +8,9 @@ public class WeaponHandler : MonoBehaviour
     public bool isWeaponEquipped { get; protected set; }
 
     public WeaponAnimHandler animationHandle;
+
+    public void WeaponUpdate()
+    {
+
+    }
 }
