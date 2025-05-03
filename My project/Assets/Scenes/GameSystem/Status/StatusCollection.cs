@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class StatusCollection
 {
+    public float moveSpeed = 5.0f;
+    public Vector2 moveDirection;
+    public Vector2 mouseDirection;
+
     public float GodTime
     {
         get; set;

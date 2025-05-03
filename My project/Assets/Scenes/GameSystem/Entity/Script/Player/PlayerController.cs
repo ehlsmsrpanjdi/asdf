@@ -37,7 +37,7 @@ public class PlayerController : BaseController
         Move();
     }
 
-    void Move()
+    void Move(ref Vector2 _moveDirectio)
     {
         moveDirection = move.ReadValue<Vector2>();
         Debug.Log(moveDirection);
