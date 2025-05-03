@@ -5,103 +5,23 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : BaseController
 {
-    private Vector2 moveDirection;
-    private Vector2 mouseDirection;
-
     [HideInInspector] public InputAction move;
     [HideInInspector] public InputAction jump;
     [HideInInspector] public InputAction mouse;
     [HideInInspector] public InputAction click;
 
-    Camera mainCamera;
-
     [HideInInspector] public PlayerInput playerInput;
 
 
-    void Start()
-    {
-        Init();
-    }
-
-    private void Update()
-    {
-        TotalMouseFunction();
-
-        stateManager.ManagerUpdate();
-        weaponHandler.WeaponUpdate();
-    }
-
-
-    void FixedUpdate()
-    {
-        Move();
-    }
-
-    void Move(ref Vector2 _moveDirectio)
-    {
-        moveDirection = move.ReadValue<Vector2>();
-        Debug.Log(moveDirection);
-        if (moveDirection.sqrMagnitude < 0.01f)
-        {
-            stateManager.StateChange(StateEnum.Idle);
-            return;
-        }
-        rigidComponent.MovePosition(rigidComponent.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
-        stateManager.StateChange(StateEnum.Move);
-    }
-
-    void TotalMouseFunction()
-    {
-        mouseDirection = mouse.ReadValue<Vector2>();
-
-        MousePosCaculator(ref mouseDirection);
-
-        bool check = PlayerDirectionCaculator(in mouseDirection);
-
-        spriteRenderer.flipX = check ? false : true;
-    }
-
-    void MousePosCaculator(ref Vector2 _mousesPos)
-    {
-        _mousesPos = mainCamera.ScreenToWorldPoint(_mousesPos);
-    }
-
-    void PlayerFlip(bool _bool)
-    {
-        spriteRenderer.flipX = _bool;
-    }
-
-
-    bool PlayerDirectionCaculator(in Vector2 _mousePos)
-    {
-        float playerX = transform.position.x;
-        float mouseX = _mousePos.x;
-
-        return playerX < mouseX ? true : false;
-    }
-
-    private bool isInit = false;
-
-    void Init()
+    public void Init()
     {
         if (isInit) return;
         isInit = true;
-
-
-        rigidComponent = GetComponent<Rigidbody2D>();
-        spriteRenderer = GameObject.FindWithTag("Renderer").GetComponent<SpriteRenderer>();
-
-        stateManager = GetComponent<StateManager>();
-        stateManager.Init();
-
-        weaponHandler = GameObject.FindWithTag("Weapon").GetComponent<WeaponHandler>();
 
         playerInput = GetComponent<PlayerInput>();
         move = playerInput.actions["Move"];
         jump = playerInput.actions["Jump"];
         mouse = playerInput.actions["Mouse"];
         click = playerInput.actions["Click"];
-
-        mainCamera = Camera.main;
     }
 }

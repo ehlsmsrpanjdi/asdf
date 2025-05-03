@@ -10,6 +10,7 @@ public enum StateEnum
     Move,
     Hit,
     Attack,
+    Jump,
 }
 
 /// <summary>
@@ -21,13 +22,12 @@ public enum StateEnum
 /// </summary>
 public abstract class StateMachine
 {
-    protected BaseController controller;
     protected StateManager stateManager;
 
 
     [HideInInspector] public StateEnum Type { get; protected set; }
 
-    public abstract void Init(MonoBehaviour _object, StateManager _manager);
+    public abstract void Init(StateManager _manager);
     public abstract void StateEnter();
     public abstract void StateUpdate();
     public abstract void StateExit();
@@ -35,10 +35,9 @@ public abstract class StateMachine
 
 public class IdleState : StateMachine
 {
-    public override void Init(MonoBehaviour _object, StateManager _manager)
+    public override void Init(StateManager _manager)
     {
         stateManager = _manager;
-        controller = _object as BaseController;
         Type = StateEnum.Idle;
     }
 
@@ -59,10 +58,9 @@ public class IdleState : StateMachine
 
 public class MoveState : StateMachine
 {
-    public override void Init(MonoBehaviour _object, StateManager _manager)
+    public override void Init(StateManager _manager)
     {
         stateManager = _manager;
-        controller = _object as BaseController;
         Type = StateEnum.Move;
     }
 
@@ -86,10 +84,9 @@ public class MoveState : StateMachine
 
 public class AttackState : StateMachine
 {
-    public override void Init(MonoBehaviour _object, StateManager _manager)
+    public override void Init(StateManager _manager)
     {
         stateManager = _manager;
-        controller = _object as BaseController;
         Type = StateEnum.Attack;
     }
 
@@ -110,10 +107,9 @@ public class AttackState : StateMachine
 
 public class HitState : StateMachine
 {
-    public override void Init(MonoBehaviour _object, StateManager _manager)
+    public override void Init(StateManager _manager)
     {
         stateManager = _manager;
-        controller = _object as BaseController;
         Type = StateEnum.Hit;
     }
 
@@ -121,15 +117,10 @@ public class HitState : StateMachine
     {
         Debug.Log("State Enter");
         stateManager.animationHandle.Hit(true);
-        controller.statusCollection.BeGod();
     }
 
     public override void StateUpdate()
     {
-        if (controller.statusCollection.GodTimeUpdate())
-        {
-            stateManager.StateChange(StateEnum.Idle);
-        }
     }
 
     public override void StateExit()
@@ -142,10 +133,9 @@ public class HitState : StateMachine
 
 public class JumpState : StateMachine
 {
-    public override void Init(MonoBehaviour _object, StateManager _manager)
+    public override void Init(StateManager _manager)
     {
         stateManager = _manager;
-        controller = _object as BaseController;
         Type = StateEnum.Hit;
     }
 

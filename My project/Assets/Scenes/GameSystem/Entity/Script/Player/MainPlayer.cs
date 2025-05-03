@@ -8,7 +8,7 @@ public class MainPlayer : MonoBehaviour
 {
     // Start is called before the first frame update
     Rigidbody2D rigidComponent;
-    Collision2D collisionComponent;
+    BoxCollider2D collisionComponent;
     PlayerController playerController;
     StateManager stateManager;
     StatusCollection statusManager = new StatusCollection();
@@ -21,7 +21,7 @@ public class MainPlayer : MonoBehaviour
     void Start()
     {
         rigidComponent = GetComponent<Rigidbody2D>();
-        collisionComponent = GetComponent<Collision2D>();
+        collisionComponent = GetComponent<BoxCollider2D>();
         playerController = GetComponent<PlayerController>();
         stateManager = GetComponent<StateManager>();
         playerSpriteObject = GetComponentInChildren<PlayerSpriteObject>();
@@ -59,14 +59,9 @@ public class MainPlayer : MonoBehaviour
         stateManager.StateChange(StateEnum.Attack);
     }
 
-    void DirectionCalculation()
-    {
-        statusManager.mouseDirection = playerController.mouse.ReadValue<Vector2>();
-    }
-
     void Jump()
     {
-
+        stateManager.StateChange(StateEnum.Jump);
     }
 
 
@@ -78,6 +73,9 @@ public class MainPlayer : MonoBehaviour
 
     void Init()
     {
+        playerSpriteObject.Init();
+
+        playerController.Init();
         playerController.move.performed += ctx => Move();
         playerController.mouse.performed += ctx => MousePosCaculator();
         playerController.click.performed += ctx => Attack();

@@ -7,6 +7,7 @@ public class BaseAnimationHandle : MonoBehaviour
     protected static readonly int IsMove = Animator.StringToHash("IsMove");
     protected static readonly int OnHit = Animator.StringToHash("OnHit");
     protected static readonly int OnAttack = Animator.StringToHash("Attack");
+    protected static readonly int OnJump = Animator.StringToHash("Jump");
 
     protected Animator animator;
 

@@ -23,7 +23,6 @@ public class StateManager : MonoBehaviour
 
     protected StateMachine currentState = null;
 
-    protected BaseController controller;
     [HideInInspector] public BaseAnimationHandle animationHandle;
 
     private void Awake()
@@ -32,8 +31,7 @@ public class StateManager : MonoBehaviour
         stateDic.Add(StateEnum.Move, new MoveState());
         stateDic.Add(StateEnum.Hit, new HitState());
         stateDic.Add(StateEnum.Attack, new AttackState());
-
-        controller = GetComponent<BaseController>();
+        stateDic.Add(StateEnum.Jump, new JumpState());
         animationHandle = GetComponentInChildren<BaseAnimationHandle>();
     }
 
@@ -43,10 +41,9 @@ public class StateManager : MonoBehaviour
 
         isInit = true;
 
-        controller = GetComponent<BaseController>();
         foreach (KeyValuePair<StateEnum, StateMachine> state in stateDic)
         {
-            state.Value.Init(controller, this);
+            state.Value.Init(this);
         }
     }
 
@@ -67,7 +64,7 @@ public class StateManager : MonoBehaviour
             return;
         }
 
-        if(_Enum == StateEnum.Hit && controller.statusCollection.GodTime > 0.01f)
+        if(_Enum == StateEnum.Hit)
         {
             return;
         }

@@ -7,8 +7,12 @@ public class PlayerSpriteObject : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
-    void Start()
+    bool isInit = false;
+
+    public void Init()
     {
+        if (isInit) return;
+        isInit = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -17,9 +21,5 @@ public class PlayerSpriteObject : MonoBehaviour
         spriteRenderer.flipX = _player.x > _mouse.x ? true : false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
