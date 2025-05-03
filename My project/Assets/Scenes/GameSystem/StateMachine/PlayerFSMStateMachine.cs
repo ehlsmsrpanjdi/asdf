@@ -49,7 +49,6 @@ public class IdleState : StateMachine
 
     public override void StateUpdate()
     {
-        Debug.Log("State Update");
     }
 
     public override void StateExit()
@@ -75,7 +74,6 @@ public class MoveState : StateMachine
 
     public override void StateUpdate()
     {
-        Debug.Log("State Update");
     }
 
     public override void StateExit()
@@ -102,7 +100,6 @@ public class AttackState : StateMachine
 
     public override void StateUpdate()
     {
-        Debug.Log("State Update");
     }
 
     public override void StateExit()
@@ -129,7 +126,6 @@ public class HitState : StateMachine
 
     public override void StateUpdate()
     {
-        Debug.Log("State Update");
         if (controller.statusCollection.GodTimeUpdate())
         {
             stateManager.StateChange(StateEnum.Idle);
@@ -140,5 +136,30 @@ public class HitState : StateMachine
     {
         Debug.Log("State Exit");
         stateManager.animationHandle.Hit(false);
+    }
+}
+
+
+public class JumpState : StateMachine
+{
+    public override void Init(MonoBehaviour _object, StateManager _manager)
+    {
+        stateManager = _manager;
+        controller = _object as BaseController;
+        Type = StateEnum.Hit;
+    }
+
+    public override void StateEnter()
+    {
+        Debug.Log("State Enter");
+    }
+
+    public override void StateUpdate()
+    {
+    }
+
+    public override void StateExit()
+    {
+        Debug.Log("State Exit");
     }
 }

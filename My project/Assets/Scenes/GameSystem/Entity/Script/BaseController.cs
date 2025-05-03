@@ -10,6 +10,8 @@ public class BaseController : MonoBehaviour
 
     public float moveSpeed = 5.0f;
 
+    public float jumpPower = 5.0f;
+
     protected StateManager stateManager = null;
 
     [HideInInspector] public StatusCollection statusCollection = new StatusCollection();

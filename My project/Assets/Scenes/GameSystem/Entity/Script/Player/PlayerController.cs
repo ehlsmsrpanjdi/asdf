@@ -39,6 +39,7 @@ public class PlayerController : BaseController
     void Move()
     {
         moveDirection = move.ReadValue<Vector2>();
+        Debug.Log(moveDirection);
         if (moveDirection.sqrMagnitude < 0.01f)
         {
             stateManager.StateChange(StateEnum.Idle);
@@ -62,6 +63,11 @@ public class PlayerController : BaseController
     void MousePosCaculator(ref Vector2 _mousesPos)
     {
         _mousesPos = mainCamera.ScreenToWorldPoint(_mousesPos);
+    }
+
+    void PlayerFlip(bool _bool)
+    {
+        spriteRenderer.flipX = _bool;
     }
 
 

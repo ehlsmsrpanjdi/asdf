@@ -53,10 +53,6 @@ public class  RangedWeapon : WeaponStrategy
 
     public override void Update()
     {
-        if(true == weaponHandler.currentWeapon.CoolTimeUpdate())
-        {
-            animationHandle.Attack(false);
-        }
     }
 }
 
@@ -79,9 +75,5 @@ public class MeleeWeapon : WeaponStrategy
     }
     public override void Update()
     {
-        if (true == weaponHandler.currentWeapon.CoolTimeUpdate())
-        {
-            animationHandle.Attack(false);
-        }
     }
 }
