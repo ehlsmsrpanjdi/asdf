@@ -17,5 +17,6 @@ MonoBehaviour:
   attackTime: 0.3
   speed: 0
   effectDuration: 0.15
-  attackAnimation: {fileID: 7400000, guid: 81dcfef7205e2604ab0315ee9dd11a1d, type: 2}
-  effectInfo: {fileID: 0}
+  weaponImage: {fileID: -1210915679, guid: b35d5847638685e488054cd175bbad4e, type: 3}
+  weaponAnimation: {fileID: 9100000, guid: 8b482d5c61cf5604e9e980aa19173bb6, type: 2}
+  effectInfo: {fileID: 11400000, guid: 1d2c848c3ad5c27409bd2b982b8c0ab8, type: 2}
