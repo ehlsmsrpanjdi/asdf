@@ -33,6 +33,8 @@ public class MainPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MousePosCaculator();
+
         Vector2 playerPos = transform.position;
         stateManager.ManagerUpdate();
         playerSpriteObject.FlipUpdate(playerPos, screenMousePos);
@@ -40,17 +42,19 @@ public class MainPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidComponent.MovePosition(rigidComponent.position + statusManager.moveDirection * statusManager.moveSpeed * Time.fixedDeltaTime);
-    }
-
-    void Move()
-    {
-        statusManager.moveDirection = playerController.move.ReadValue<Vector2>();
         if (statusManager.moveDirection.sqrMagnitude < 0.01f)
         {
             stateManager.StateChange(StateEnum.Idle);
             return;
         }
+        rigidComponent.MovePosition(rigidComponent.position + statusManager.moveDirection * statusManager.moveSpeed * Time.fixedDeltaTime);
+    }
+
+
+    void Move()
+    {
+        statusManager.moveDirection = playerController.move.ReadValue<Vector2>();
+
         stateManager.StateChange(StateEnum.Move);
     }
 
@@ -75,9 +79,11 @@ public class MainPlayer : MonoBehaviour
     {
         playerSpriteObject.Init();
 
+        stateManager.Init();
+
         playerController.Init();
         playerController.move.performed += ctx => Move();
-        playerController.mouse.performed += ctx => MousePosCaculator();
+        //playerController.mouse.performed += ctx => MousePosCaculator();
         playerController.click.performed += ctx => Attack();
         playerController.jump.performed += ctx => Jump();
     }
