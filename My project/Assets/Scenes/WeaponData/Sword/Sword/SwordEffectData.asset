@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44bb947d36ed7d34b8ca2ded7808c2bc, type: 3}
-  m_Name: WeaponData
+  m_Name: SwordEffectData
   m_EditorClassIdentifier: 
-  SpawnLocation: {x: 0, y: 0}
-  effectPrefab: {fileID: 0}
-  attackAnimation: {fileID: 0}
+  SpawnLocation: {x: 0.5, y: 0.2}
+  effectPrefab: {fileID: 8859837289832444645, guid: f9ca17b26368f534eba4c5fa35f52e7d, type: 3}

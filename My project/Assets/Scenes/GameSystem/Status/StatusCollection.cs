@@ -3,12 +3,23 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class StatusCollection
+
+/// <summary>
+/// 플레이어 스텟 및 무적시간 등등 관리해야해서
+/// initializer 있어야함
+/// </summary>
+public class StatusCollection : Initializer
 {
     public float moveSpeed = 5.0f;
     public Vector2 moveDirection;
     public Vector2 mouseDirection;
 
+    bool isInit = false;
+    public void Init()
+    {
+        if (isInit) return;
+        isInit = true;
+    }
     public float GodTime
     {
         get; protected set;
@@ -22,7 +33,7 @@ public class StatusCollection
 
     public bool IsGod() => GodTime > 0.001f ? true : false;
 
-    public void StatusUpdate()
+    public void ManagerUpdate()
     {
         GodTimeUpdate();
     }

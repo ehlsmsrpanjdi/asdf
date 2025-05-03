@@ -18,6 +18,8 @@ public class MainPlayer : MonoBehaviour
 
     Vector2 screenMousePos;
 
+    private List<Initializer> initializers = new List<Initializer>();
+
 
     void Start()
     {
@@ -29,21 +31,44 @@ public class MainPlayer : MonoBehaviour
         weaponHandler = GameObject.FindGameObjectWithTag("Weapon").GetComponent<WeaponHandler>();
         mainCamera = Camera.main;
 
+        initializers.Add(playerController);
+        initializers.Add(stateManager);
+        initializers.Add(statusManager);
+        initializers.Add(playerSpriteObject);
+        initializers.Add(weaponHandler);
+        //플레이어가 반드시 갖고있어야하고, 업데이트가 필요한 객체들은 
+        //모두 다 initializer로 묶은 후 플레이어가 업데이트까지 직접 호출
+
+
         Init();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))        //디버깅용 함수 누르면 맞음
         {
             OnHit();
         }
 
-        MousePosCaculator();
-        stateManager.ManagerUpdate();
-        statusManager.StatusUpdate();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            weaponHandler.WeaponOn(GameInstance.GetInst().GetWeaponInfo("Sword"));
+        }
 
+        MouseFunction();
+
+        initializers.ForEach(updateObject => updateObject.ManagerUpdate());
+
+        //stateManager.ManagerUpdate();
+        //statusManager.ManagerUpdate();
+        //weaponHandler.ManagerUpdate();
+
+    }
+
+    void MouseFunction()
+    {
+        MousePosCaculator();
         Vector2 playerPos = transform.position;
         playerSpriteObject.FlipUpdate(playerPos, screenMousePos);
     }
@@ -69,8 +94,8 @@ public class MainPlayer : MonoBehaviour
     void Attack()
     {
         if (weaponHandler.isEquipped == false) return;
-        stateManager.StateChange(StateEnum.Attack);
-        //weaponHandler.Attack(statusManager.mouseDirection);
+        //stateManager.StateChange(StateEnum.Attack);
+        weaponHandler.Attack();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -102,13 +127,9 @@ public class MainPlayer : MonoBehaviour
 
     void Init()
     {
-        playerSpriteObject.Init();
+        initializers.ForEach(x => x.Init());  //아니 이건 또 뭐임?
 
-        stateManager.Init();
-
-        //weaponHandler.Init();
-
-        playerController.Init();
+        //바인딩은 직접해주는게 보이고 좋고 플레이어가 명시적으로 해주는게 나은 것 같음
         playerController.move.performed += ctx => Move();
         //playerController.mouse.performed += ctx => MousePosCaculator();
         playerController.click.performed += ctx => Attack();

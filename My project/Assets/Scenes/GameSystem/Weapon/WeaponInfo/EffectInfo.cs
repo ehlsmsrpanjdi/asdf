@@ -7,5 +7,5 @@ public class EffectInfo : ScriptableObject
 {
     public Vector2 SpawnLocation;
     public GameObject effectPrefab;
-    public AnimationClip attackAnimation;
+    //public AnimationClip attackAnimation;
 }

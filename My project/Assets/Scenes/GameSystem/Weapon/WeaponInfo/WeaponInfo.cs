@@ -11,8 +11,13 @@ public class WeaponInfo : ScriptableObject
     public float attackTime;
     public float speed;
     public float effectDuration;
+    public Sprite weaponImage;
 
-    
-    public AnimationClip attackAnimation;
+    public GameObject GetEffect()
+    {
+        return effectInfo.effectPrefab;
+    }
+
+    public RuntimeAnimatorController weaponAnimation;
     public EffectInfo effectInfo;
 }

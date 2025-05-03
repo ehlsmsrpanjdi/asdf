@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2016209603760697644}
   - component: {fileID: 1294366827367032004}
   - component: {fileID: 5324814846701512869}
+  - component: {fileID: 2814582184061015462}
   m_Layer: 0
   m_Name: SwordEffect
   m_TagString: Untagged
@@ -130,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &2814582184061015462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8859837289832444645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b13fd6b4918d1045ab05c835e7a8c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

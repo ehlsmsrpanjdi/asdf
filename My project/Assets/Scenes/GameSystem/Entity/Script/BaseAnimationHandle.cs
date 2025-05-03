@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// initalizer 안붙인 이유는
+/// 어차피 한 번 호출하고 tick안돌고
+/// 플레이어가 갖고있을 확률이 너무 낮음
+/// </summary>
 public class BaseAnimationHandle : MonoBehaviour
 {
     protected static readonly int IsMove = Animator.StringToHash("IsMove");
@@ -11,10 +17,14 @@ public class BaseAnimationHandle : MonoBehaviour
 
     protected Animator animator;
 
-
-    protected virtual void Awake()
+    void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    public void SetAnimationController(RuntimeAnimatorController _Controller)
+    {
+        animator.runtimeAnimatorController = _Controller;
     }
 
     public virtual void Move(bool _bool)

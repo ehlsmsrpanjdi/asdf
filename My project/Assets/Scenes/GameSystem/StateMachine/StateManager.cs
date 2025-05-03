@@ -5,16 +5,10 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
 /// <summary>
-/// 얘는 애니메이션 핸들을 갖고있을 예정이다.
-/// 왜냐하면 statemanager의 존재 목적의 1순위는
-/// 애니메이션 재생이기 때문
-/// 결합도 응집도 다 알빠아니고
-/// 얘는 일단 애니메이션을 위한 도구 중 한 개임
-/// 
-/// 자식에 Renderer가 있다고 확정하고
-/// 그 자식의 Renderer의 animatinohandle을 가져올거임
+/// 플레이어의 애니메이션과 상태관리
+/// Initializer 반드시 있어야함
 /// </summary>
-public class StateManager : MonoBehaviour
+public class StateManager : MonoBehaviour, Initializer
 {
     // Start is called before the first frame update
 

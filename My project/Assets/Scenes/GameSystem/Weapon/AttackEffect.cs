@@ -12,6 +12,12 @@ public class AttackEffect : MonoBehaviour
     float LifeTime;
     bool isInit = false;
 
+    /// <summary>
+    /// 1. Damage, 2. Speed, 3. LifeTime
+    /// </summary>
+    /// <param name="_Damage"></param>
+    /// <param name="_Speed"></param>
+    /// <param name="_LifeTime"></param>
     public void Init(float _Damage, float _Speed, float _LifeTime)
     {
         if (isInit) return;
@@ -19,15 +25,21 @@ public class AttackEffect : MonoBehaviour
         Damage = _Damage;
         Speed = _Speed;
         LifeTime = _LifeTime;
+        Destroy(gameObject, LifeTime);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
-        {
-            Debug.Log("Hit");
+        //if (collision.CompareTag("Enemy"))
+        //{
+            //Debug.Log("Hit");
             //Debug.Log("Hit");
             //collision.GetComponent<Enemy>().TakeDamage(Damage);
             //Destroy(gameObject);
-        }
+        //}
+    }
+
+    public void Update()
+    {
+        
     }
 }
