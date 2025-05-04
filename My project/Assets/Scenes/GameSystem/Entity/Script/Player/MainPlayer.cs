@@ -56,6 +56,11 @@ public class MainPlayer : MonoBehaviour
             weaponHandler.WeaponOn(GameInstance.GetInst().GetWeaponInfo("Sword"));
         }
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            weaponHandler.WeaponOn(GameInstance.GetInst().GetWeaponInfo("Hammer"));
+        }
+
         MouseFunction();
 
         initializers.ForEach(updateObject => updateObject.ManagerUpdate());
