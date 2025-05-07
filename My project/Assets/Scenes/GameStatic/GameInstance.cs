@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditorInternal;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEditor;
+
+
 
 public class GameInstance : MonoBehaviour
 {
+
+    public static readonly string MainGameScene = "SampleScene";
+    public static readonly string JumpGameScene = "JumpMapScene";
     private static GameInstance instance;
 
     Dictionary<string, WeaponInfo> weaponInfoDict = new Dictionary<string, WeaponInfo>();
@@ -68,5 +75,12 @@ public class GameInstance : MonoBehaviour
             return null;
         }
     }
+
+    public void ChangeScene(string _sceneName)
+    {
+        SceneManager.LoadScene(_sceneName);
+
+    }
+
 
 }

@@ -9,14 +9,17 @@ public class JumpPlayer : MonoBehaviour
     public float flapForce = 6f;
     public float forwardSpeed = 3f;
     public bool isDead = false;
-    float deathCooldown = 0f;
 
     bool isFlap = false;
 
     public bool godMode = false;
 
     public TextMeshProUGUI countdownText;
+    public TextMeshProUGUI scoreText;
     bool GameStart = false;
+
+    float Score = 0.0f;
+    float MaxScore = 0.0f;
 
     void Start()
     {
@@ -36,20 +39,23 @@ public class JumpPlayer : MonoBehaviour
         if (!GameStart) return;
         if (isDead)
         {
-            if (deathCooldown <= 0)
-            {
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    // 게임 재시작
+                    GameInstance.GetInst().ChangeScene(GameInstance.JumpGameScene);
                 }
-            }
-            else
-            {
-                deathCooldown -= Time.deltaTime;
-            }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    GameInstance.GetInst().ChangeScene(GameInstance.MainGameScene);
+                }
         }
         else
         {
+            Score += Time.deltaTime;
+            if (MaxScore < Score)
+            {
+                scoreText.text = Score.ToString();
+                MaxScore = Score;
+            }
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 isFlap = true;
@@ -79,7 +85,7 @@ public class JumpPlayer : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        GameStart = false;
+        GameStart = true;
         if (godMode)
             return;
 
@@ -87,7 +93,7 @@ public class JumpPlayer : MonoBehaviour
             return;
 
         isDead = true;
-        deathCooldown = 1f;
+        countdownText.text = "Press Space Restart or\n Press E GameEnd";
     }
 
     IEnumerator StartCountdown()
@@ -101,11 +107,12 @@ public class JumpPlayer : MonoBehaviour
         countdownText.text = "1";
         yield return new WaitForSeconds(1f);
 
-        countdownText.text = "Game Start!";
+        countdownText.text = "Game Start!\n Click!!!";
         yield return new WaitForSeconds(1f);
         GameStart = true;
         _rigidbody.isKinematic = false;
         countdownText.text = ""; // 필요하다면 비우기
         forwardSpeed = 3f;
     }
+
 }

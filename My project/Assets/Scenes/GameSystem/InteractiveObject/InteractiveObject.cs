@@ -7,11 +7,17 @@ public class InteractiveObject : MonoBehaviour
     BoxCollider2D boxCollider2D;
     Canvas interactiveCanvas;
     bool isTrigger = false;
+
+    delegate void OnInteractive();
+    OnInteractive onInteractive;
     // Start is called before the first frame update
     void Start()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
         interactiveCanvas = GameObject.FindGameObjectWithTag("InteractiveUI").GetComponent<Canvas>();
+        interactiveCanvas.enabled = false;
+
+        onInteractive += () => GameInstance.GetInst().ChangeScene(GameInstance.JumpGameScene);
     }
 
     // Update is called once per frame
@@ -40,6 +46,7 @@ public class InteractiveObject : MonoBehaviour
             {
                 // 상호작용 로직
                 Debug.Log("상호작용 시작");
+                onInteractive();
             }
         }
     }
