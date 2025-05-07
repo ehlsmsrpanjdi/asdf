@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Renderer
   - Weapon
+  - InteractiveUI
+  - BackGround
   layers:
   - Default
   - TransparentFX

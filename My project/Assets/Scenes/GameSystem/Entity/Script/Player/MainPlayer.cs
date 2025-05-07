@@ -123,6 +123,17 @@ public class MainPlayer : MonoBehaviour
         stateManager.StateChange(StateEnum.Jump);
     }
 
+    public void Handled()
+    {
+        statusManager.moveSpeed = 0.0f;
+        stateManager.StateChange(StateEnum.Handled);
+    }
+
+    public void UnHandled()
+    {
+        statusManager.moveSpeed = 5.0f;
+        stateManager.StateChange(StateEnum.Idle);
+    }
 
     void  MousePosCaculator()
     {

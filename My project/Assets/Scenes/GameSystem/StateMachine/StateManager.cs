@@ -26,6 +26,8 @@ public class StateManager : MonoBehaviour, Initializer
         stateDic.Add(StateEnum.Hit, new HitState());
         stateDic.Add(StateEnum.Attack, new AttackState());
         stateDic.Add(StateEnum.Jump, new JumpState());
+        stateDic.Add(StateEnum.Handled, new JumpState());
+        stateDic.Add(StateEnum.JumpGame, new JumpState());
         animationHandle = GetComponentInChildren<BaseAnimationHandle>();
     }
 

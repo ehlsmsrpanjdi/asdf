@@ -11,6 +11,8 @@ public enum StateEnum
     Hit,
     Attack,
     Jump,
+    Handled,
+    JumpGame,
 }
 
 /// <summary>
@@ -136,6 +138,29 @@ public class JumpState : StateMachine
     public override void Init(StateManager _manager)
     {
         stateManager = _manager;
+        Type = StateEnum.Jump;
+    }
+
+    public override void StateEnter()
+    {
+        Debug.Log("State Enter");
+    }
+
+    public override void StateUpdate()
+    {
+    }
+
+    public override void StateExit()
+    {
+        Debug.Log("State Exit");
+    }
+}
+
+public class HandleState : StateMachine
+{
+    public override void Init(StateManager _manager)
+    {
+        stateManager = _manager;
         Type = StateEnum.Hit;
     }
 
@@ -146,6 +171,33 @@ public class JumpState : StateMachine
 
     public override void StateUpdate()
     {
+    }
+
+    public override void StateExit()
+    {
+        Debug.Log("State Exit");
+    }
+}
+
+public class JumpGameState : StateMachine
+{
+    public override void Init(StateManager _manager)
+    {
+        stateManager = _manager;
+        Type = StateEnum.JumpGame;
+    }
+
+    public override void StateEnter()
+    {
+        Debug.Log("State Enter");
+    }
+
+    public override void StateUpdate()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+
+        }
     }
 
     public override void StateExit()
