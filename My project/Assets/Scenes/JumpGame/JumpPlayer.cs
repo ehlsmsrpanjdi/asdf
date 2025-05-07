@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class JumpPlayer : MonoBehaviour
@@ -13,6 +15,9 @@ public class JumpPlayer : MonoBehaviour
 
     public bool godMode = false;
 
+    public TextMeshProUGUI countdownText;
+    bool GameStart = false;
+
     void Start()
     {
         _rigidbody = transform.GetComponent<Rigidbody2D>();
@@ -21,10 +26,14 @@ public class JumpPlayer : MonoBehaviour
         {
             Debug.LogError("Not Founded Rigidbody");
         }
+        _rigidbody.isKinematic = true;
+        forwardSpeed = 0f;
+        StartCoroutine(StartCountdown());
     }
 
     void Update()
     {
+        if (!GameStart) return;
         if (isDead)
         {
             if (deathCooldown <= 0)
@@ -70,6 +79,7 @@ public class JumpPlayer : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
+        GameStart = false;
         if (godMode)
             return;
 
@@ -78,5 +88,24 @@ public class JumpPlayer : MonoBehaviour
 
         isDead = true;
         deathCooldown = 1f;
+    }
+
+    IEnumerator StartCountdown()
+    {
+        countdownText.text = "3";
+        yield return new WaitForSeconds(1f);
+
+        countdownText.text = "2";
+        yield return new WaitForSeconds(1f);
+
+        countdownText.text = "1";
+        yield return new WaitForSeconds(1f);
+
+        countdownText.text = "Game Start!";
+        yield return new WaitForSeconds(1f);
+        GameStart = true;
+        _rigidbody.isKinematic = false;
+        countdownText.text = ""; // 필요하다면 비우기
+        forwardSpeed = 3f;
     }
 }
